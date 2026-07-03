@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build api",
+      "type": "shell",
+      "command": "dotnet build src/AngularDotNetLab.Api/AngularDotNetLab.Api.csproj",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build api with angular",
+      "type": "shell",
+      "command": "dotnet build src/AngularDotNetLab.Api/AngularDotNetLab.Api.csproj /p:BuildClientApp=true",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

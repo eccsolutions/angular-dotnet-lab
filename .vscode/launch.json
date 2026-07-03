@@ -1,0 +1,43 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Razor Pages only",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build api",
+      "program": "${workspaceFolder}/src/AngularDotNetLab.Api/bin/Debug/net10.0/AngularDotNetLab.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/AngularDotNetLab.Api",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://0.0.0.0:5000"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Now listening on:\\s+http://\\S+:(\\d+)",
+        "uriFormat": "http://localhost:%s/"
+      }
+    },
+    {
+      "name": "Razor Pages with updated Angular",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build api with angular",
+      "program": "${workspaceFolder}/src/AngularDotNetLab.Api/bin/Debug/net10.0/AngularDotNetLab.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/AngularDotNetLab.Api",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://0.0.0.0:5000"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "Now listening on:\\s+http://\\S+:(\\d+)",
+        "uriFormat": "http://localhost:%s/"
+      }
+    }
+  ]
+}
