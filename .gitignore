@@ -3,6 +3,9 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
+# Local .NET/VS Code run discovery artifacts
+dotnet/runfile-discovery/
+
 # dotenv files
 .env
 

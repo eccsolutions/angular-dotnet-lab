@@ -4,13 +4,22 @@
         "dockerfile": "Dockerfile"
     },
     "remoteUser": "ubuntu",
+    "updateRemoteUserUID": true,
     "workspaceFolder": "/workspaces/angular-dotnet-lab",
+    "features": {
+        "ghcr.io/devcontainers/features/node:2": {
+            "version": "lts"
+        }
+    },
     "customizations": {
         "vscode": {
             "extensions": [
                 "ms-dotnettools.csdevkit",
                 "ms-dotnettools.csharp",
-                "ms-azuretools.vscode-containers"
+                "ms-azuretools.vscode-containers",
+                "angular.ng-template",
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint"
             ]
         }
     },
