@@ -4,11 +4,55 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <SpaRoot>../AngularDotNetLab.Web/</SpaRoot>
+    <SpaOutputRoot>$(SpaRoot)dist/aspnet/browser/</SpaOutputRoot>
+    <BuildClientApp>false</BuildClientApp>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
     <PackageReference Include="Microsoft.OpenApi" Version="2.7.*" />
   </ItemGroup>
+
+  <Target Name="BuildAngularApp">
+    <Message Importance="high" Text="Building Angular app..." />
+
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm ci" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:aspnet" />
+  </Target>
+
+  <Target Name="CopyAngularAppToWwwRoot"
+          AfterTargets="Build"
+          DependsOnTargets="BuildAngularApp"
+          Condition="'$(BuildClientApp)' == 'true'">
+    <Message Importance="high" Text="Copying Angular app to wwwroot/app for local ASP.NET Core hosting..." />
+
+    <RemoveDir Directories="$(MSBuildProjectDirectory)/wwwroot/app" />
+    <MakeDir Directories="$(MSBuildProjectDirectory)/wwwroot/app" />
+
+    <ItemGroup>
+      <AngularDistFiles Include="$(SpaOutputRoot)**/*" />
+    </ItemGroup>
+
+    <Copy
+      SourceFiles="@(AngularDistFiles)"
+      DestinationFiles="@(AngularDistFiles->'$(MSBuildProjectDirectory)/wwwroot/app/%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+
+  <Target Name="PublishAngularApp"
+          AfterTargets="ComputeFilesToPublish">
+    <Message Importance="high" Text="Building Angular app for publish..." />
+
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm ci" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build:aspnet" />
+
+    <ItemGroup>
+      <AngularDistFiles Include="$(SpaOutputRoot)**/*" />
+      <ResolvedFileToPublish Include="@(AngularDistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>wwwroot/app/%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
 
 </Project>
