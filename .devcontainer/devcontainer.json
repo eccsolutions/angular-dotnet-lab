@@ -6,6 +6,17 @@
     "remoteUser": "ubuntu",
     "updateRemoteUserUID": true,
     "workspaceFolder": "/workspaces/angular-dotnet-lab",
+    "forwardPorts": [5000, 4200],
+    "portsAttributes": {
+        "5000": {
+            "label": ".NET API",
+            "onAutoForward": "notify"
+        },
+        "4200": {
+            "label": "Angular Web",
+            "onAutoForward": "notify"
+        }
+    },
     "features": {
         "ghcr.io/devcontainers/features/node:2": {
             "version": "lts"
